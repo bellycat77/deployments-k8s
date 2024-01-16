@@ -18,7 +18,7 @@ kubectl create ns ns-spire-server-agent-restart
 
 Deploy NSC and NSE:
 ```bash
-kubectl apply -k https://github.com/networkservicemesh/deployments-k8s/examples/heal/spire-server-agent-restart?ref=b73ab7d735a834e01cce9a8f62dcd035115b9a1e
+kubectl apply -k https://github.com/networkservicemesh/deployments-k8s/examples/heal/spire-server-agent-restart?ref=d186ae9a814b58cedc59b25bead7ac2daaa4ab28
 ```
 
 Wait for applications ready:
@@ -50,7 +50,7 @@ kubectl delete pod spire-server-0 -n spire
 ```
 
 ```bash
-kubectl wait --for=condition=ready --timeout=1m pod -l app=spire-server -n spire
+kubectl wait --for=condition=ready --timeout=3m pod -l app=spire-server -n spire
 ```
 
 Restart SPIRE agents and wait for them to start:

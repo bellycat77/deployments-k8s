@@ -84,7 +84,7 @@ kubectl wait -n observability --timeout=1m --for=condition=ready pod -l name=jae
 
 Apply Jaeger pod:
 ```bash
-kubectl apply -k https://github.com/networkservicemesh/deployments-k8s/examples/features/jaeger/jaeger?ref=b73ab7d735a834e01cce9a8f62dcd035115b9a1e
+kubectl apply -k https://github.com/networkservicemesh/deployments-k8s/examples/features/jaeger/jaeger?ref=d186ae9a814b58cedc59b25bead7ac2daaa4ab28
 ```
 
 Wait for Jaeger pod status ready:
@@ -94,20 +94,20 @@ kubectl wait -n observability --timeout=1m --for=condition=ready pod -l app=jaeg
 
 Apply OpenTelemetry pod:
 ```bash
-kubectl apply -k https://github.com/networkservicemesh/deployments-k8s/examples/features/jaeger/opentelemetry?ref=b73ab7d735a834e01cce9a8f62dcd035115b9a1e
+kubectl apply -k https://github.com/networkservicemesh/deployments-k8s/examples/features/jaeger/opentelemetry?ref=d186ae9a814b58cedc59b25bead7ac2daaa4ab28
 ```
 
 Apply Spire deployments (required for NSM system)
 ```bash
-kubectl apply -k https://github.com/networkservicemesh/deployments-k8s/examples/spire/single_cluster?ref=b73ab7d735a834e01cce9a8f62dcd035115b9a1e
+kubectl apply -k https://github.com/networkservicemesh/deployments-k8s/examples/spire/single_cluster?ref=d186ae9a814b58cedc59b25bead7ac2daaa4ab28
 ```
 
 Wait for Spire pods status ready:
 ```bash
-kubectl wait -n spire --timeout=1m --for=condition=ready pod -l app=spire-agent
+kubectl wait -n spire --timeout=3m --for=condition=ready pod -l app=spire-server
 ```
 ```bash
-kubectl wait -n spire --timeout=1m --for=condition=ready pod -l app=spire-server
+kubectl wait -n spire --timeout=1m --for=condition=ready pod -l app=spire-agent
 ```
 
 Create namespace nsm-system:
@@ -117,7 +117,7 @@ kubectl create ns nsm-system
 
 Apply NSM resources:
 ```bash
-kubectl apply -k https://github.com/networkservicemesh/deployments-k8s/examples/features/jaeger/nsm-system?ref=b73ab7d735a834e01cce9a8f62dcd035115b9a1e
+kubectl apply -k https://github.com/networkservicemesh/deployments-k8s/examples/features/jaeger/nsm-system?ref=d186ae9a814b58cedc59b25bead7ac2daaa4ab28
 ```
 
 Wait for admission-webhook-k8s:
@@ -136,8 +136,7 @@ You can see traces from the NSM manager and forwarder in Jaeger UI (`http://loca
 
 Free NSM resources:
 ```bash
-WH=$(kubectl get pods -l app=admission-webhook-k8s -n nsm-system --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
-kubectl delete mutatingwebhookconfiguration ${WH}
+kubectl delete mutatingwebhookconfiguration nsm-mutating-webhook
 kubectl delete ns nsm-system
 ```
 

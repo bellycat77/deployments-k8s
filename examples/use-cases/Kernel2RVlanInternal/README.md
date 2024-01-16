@@ -6,14 +6,14 @@ Forwarders are using the `vlan` remote mechanism to set up the VLAN interface.
 
 ## Requires
 
-Make sure that you have completed steps from [remotevlan](../../remotevlan) setup.
+Make sure that you have completed steps from [remotevlan_ovs](../../remotevlan_ovs) or [remotevlan_vpp](../../remotevlan_vpp) setup.
 
 ## Run
 
 Deploy iperf server:
 
 ```bash
-kubectl apply -k https://github.com/networkservicemesh/deployments-k8s/examples/use-cases/Kernel2RVlanInternal?ref=b73ab7d735a834e01cce9a8f62dcd035115b9a1e
+kubectl apply -k https://github.com/networkservicemesh/deployments-k8s/examples/use-cases/Kernel2RVlanInternal?ref=d186ae9a814b58cedc59b25bead7ac2daaa4ab28
 ```
 
 Wait for applications ready:
